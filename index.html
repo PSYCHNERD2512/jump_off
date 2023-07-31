@@ -5,9 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
     <title>Jump Off</title>
-    <script src="index.js"></script>
+    
 </head>
 <body>
     
+    <div id="main">
+        <div id="top-bar"></div>
+        <div id="instruction"><p>Collect numbers that represent reasons to impose<br>sanctions. Jump to skip the false points using the Up key.</p></div>
+        <div id="control"><img src="./assets/keys.png" height="60px" style="position: relative;align-items: end;"><br><h style="font-size: 13px">Use right key to move<br>further and up key to jump.</h></div>
+        <canvas id="game-screen">
+            <div id="arrow1-container" class="arrow-container">
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+            </div>
+            
+            <div id="arrow2-container" class="arrow-container">
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+            </div>
+            
+            <div id="arrow3-container" class="arrow-container">
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+                <div class="black-box"></div>
+            </div>
+            
+        </canvas>
+        
+        <div id="buttons">
+            <button id="start-btn">Start</button><br>
+            <button id="submit-btn">Submit</button>
+        </div>
+        
+        <div id="stuff">
+            <div class="1">Acts of Violence</div>
+            <div class="2">Restrict Trade</div>
+            <div class="3">Promote Peace</div>
+            <div class="4">Encourage Democracy</div>
+        
+            <div class="5">Audit testing</div>
+            <div class="6">Discourage Terrorism</div>
+            <div class="7">Maintain Records</div>
+            <div class="8">Promote Economic<br>Reform</div>
+        
+            <div class="9">Foreign Policy</div>
+            <div class="10">Protect Natural<br>Resources</div>
+            <div class="11">Change in Stable</div>
+            <div class="12">End Wildlife Smuggling</div>
+        </div>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
