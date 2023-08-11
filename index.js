@@ -15,6 +15,8 @@ let player = {
     h: playerH,
 };
 
+let points = 0;
+
 let stoneH = 40;
 let stoneW = 70;
 let stoneX = 800;
@@ -64,7 +66,7 @@ function handleKeyDown(e) {
     }
     if (e.code === "Space" || e.code === "ArrowUp") {
         if (player.y === playerY) {
-            stone_velY = -8;
+            stone_velY = -10;
         }
     }
     if (e.code === "ArrowRight") {
@@ -90,6 +92,7 @@ function update() {
     }
     requestAnimationFrame(update);
     context.clearRect(0, 0, boardW, boardH); 
+    
     stone_velY += gravity;
     player.y = Math.min(player.y + stone_velY, playerY);
     
@@ -106,16 +109,34 @@ function update() {
     for (let j = 0; j < req; j++) {
         let stone = stonearr[j];
         stone.x += stone_velX;
+    
         context.drawImage(stone.img, stone.x, stone.y, stone.w, stone.h);
-
-       
-        context.fillStyle ="black";
+    
+        context.fillStyle = "black";
         context.font = "22px bold Arial";
         context.fillText(stone.n, stone.x + stone.w / 2 - 5, stone.y + stone.h / 2 + 5);
-        if(collision(player,stone)){
-            game_over = true;
+    
+        // Check for collision with the player
+        if (
+            player.x + player.w > stone.x &&
+            player.x < stone.x + stone.w &&
+            player.y + player.h > stone.y &&
+            player.y < stone.y + stone.h
+        ) {
+            
+                points++;
+                stone.x = -stone.w; 
+                
+            
         }
     }
+    if (stonearr[req - 1].x <= -stonearr[req - 1].w - 25) {
+        game_over = true;
+    }
+    
+    
+    displayPoints();
+    
 }
 
 function placeStone() {
@@ -130,7 +151,7 @@ function placeStone() {
             w: stoneW,
         };
         
-        Stone.x = stoneX + ((i - 1) * 500);
+        Stone.x = stoneX + ((i - 1) * 600);
         
         stonearr.push(Stone);
         i++;
@@ -138,15 +159,17 @@ function placeStone() {
 }
 
 
-function collision(a,b){
-    return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y + a.h>b.y;
 
-}
 
 function resetGame() {
    location.reload();
 }
 
+function displayPoints() {
+    context.fillStyle = "white";
+    context.font = "22px bold Arial";
+    context.fillText("Points: " + points, 10, 30); // Display points at (10, 30) on the canvas
+}
 
 
 
