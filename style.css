@@ -1,0 +1,39 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin: 0; 
+    padding: 0;
+    overflow: hidden;
+}
+
+#board {
+   
+    background-color: lightgray;
+    border-bottom: 1px solid black;
+    background-image: url("./img/bg.png");
+    background-size: cover ;
+     
+
+}
+
+#reset {
+    background: url("./img/function.png");
+    background-size: 200px;
+    text-align: center;
+    padding-left: 20px;
+    padding-top: 8px;
+    visibility: hidden;
+    font-size: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position:absolute;
+    top: 260px;
+    left: 880px;
+    
+    height:60px;
+    width: 200px;
+    background-position: center center;
+}
+
+
