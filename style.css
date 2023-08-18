@@ -1,39 +1,68 @@
 body {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
-    margin: 0; 
+    margin: 0;
     padding: 0;
     overflow: hidden;
+    position: relative;
 }
 
 #board {
-   
     background-color: lightgray;
     border-bottom: 1px solid black;
     background-image: url("./img/bg.png");
-    background-size: cover ;
-     
-
+    background-size: cover;
 }
 
-#reset {
+.button-s {
     background: url("./img/function.png");
     background-size: 200px;
     text-align: center;
     padding-left: 20px;
     padding-top: 8px;
-    visibility: hidden;
+    
     font-size: 30px;
     border: none;
     outline: none;
     cursor: pointer;
-    position:absolute;
+    position: absolute;
     top: 260px;
-    left: 880px;
-    
-    height:60px;
+    left: 650px;
+    height: 60px;
     width: 200px;
+    color: whitesmoke;
     background-position: center center;
 }
+#start{}
+#submit{
+    left:880px;
+}
+#reset{visibility: hidden;}
 
+#a {
+    position: absolute;
+    top: 130px;
+    left: 850px;
+    transform: translate(-50%, -50%);
+    display: grid;
+    
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
 
+#a button {
+    background: none; 
+    background-image: url("./img/Options.png");
+    background-position: center center;
+    background-size: 200px;
+    color: antiquewhite;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    width: 200px;
+    height: 52px;
+    border-radius: 10px;
+    border: none;
+    cursor: not-allowed;
+    pointer-events: none;
+}
