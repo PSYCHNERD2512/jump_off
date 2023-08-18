@@ -52,9 +52,9 @@ window.onload = function () {
     
     player.animationFrames = [];
     for (let frame = 1; frame <= numFrames; frame++) {
-        
+        let num = numFrames - frame+1;
         const frameImg = new Image();
-        frameImg.src = `./img/player${frame}.png`;
+        frameImg.src = `./img/player${num}.png`;
         player.animationFrames.push(frameImg);
         
     }
