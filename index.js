@@ -23,6 +23,7 @@ let stoneW = 70;
 let stoneX = 800;
 let stoneY = boardH - stoneH;
 let stoneImg;
+let stoneWImg;
 let i = 1;
 let req = 12;
 let stonearr = [];
@@ -61,6 +62,8 @@ window.onload = function () {
 
     stoneImg = new Image();
     stoneImg.src = "./img/stone.png";
+    stoneWImg = new Image();
+    stoneWImg.src = "./img/stoneW.png";
 
     requestAnimationFrame(update);
     setInterval(placeStone, 100);
@@ -137,20 +140,25 @@ function update() {
         context.fillStyle = "black";
         context.font = "22px bold Arial";
         context.fillText(stone.n, stone.x + stone.w / 2 - 5, stone.y + stone.h / 2 + 5);
-
+        
         if (
             player.x + player.w > stone.x &&
             player.x < stone.x + stone.w &&
             player.y + player.h > stone.y &&
-            player.y < stone.y + stone.h
+            player.y < stone.y + stone.h&& stone.collected ==false
         ) {
             if (corr_stone.includes(stone.n)) {
                 score+=2;
-            } else {
+                stone.collected = true;
+                stone.x -=200000000;
+            } else  {
                 score--;
+                stone.img = stoneWImg;
+                stone.collected= true;
             }
-            stone.x = -20000*stone.x;
+            
         }
+    
     }
     const lastStone = stonearr[req - 1];
 
@@ -172,6 +180,7 @@ function placeStone() {
             img: stoneImg,
             h: stoneH,
             w: stoneW,
+            collected: false,
         };
 
         Stone.x = stoneX + ((i - 1) * 600);
