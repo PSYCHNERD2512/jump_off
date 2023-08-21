@@ -18,6 +18,7 @@ let player = {
 
 let points = 0;
 
+
 let stoneH = 40;
 let stoneW = 70;
 let stoneX = 800;
@@ -67,7 +68,7 @@ window.onload = function () {
 
     requestAnimationFrame(update);
     setInterval(placeStone, 100);
-    setInterval(loadAnimationFrames, animationFrameInterval);
+    setInterval(loadAnimationFrames(1), animationFrameInterval);
 
 };
 
@@ -160,12 +161,7 @@ function update() {
         }
     
     }
-    const lastStone = stonearr[req - 1];
-
-    if (lastStone.x + lastStone.w+200< player.x) {
-        resetButton = document.getElementById("reset");
-        resetButton.style.visibility = "visible";
-    }
+    
     
 
     displayPoints();
@@ -201,14 +197,17 @@ function resetGame() {
     location.reload();
 }
 
-function loadAnimationFrames() {
+function loadAnimationFrames(i) {
+    const numFrames = 7;
     if (i <= numFrames) {
         let frameImg = new Image();
         frameImg.src = `./img/player${i}.png`;
         player.animationFrames.push(frameImg);
         i++;
+        loadAnimationFrames(i); // Call the function recursively
     }
 }
+
 function startGame() {
     const startButton = document.getElementById("start");
     startButton.style.display = "none"; 
