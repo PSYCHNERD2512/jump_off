@@ -3,8 +3,10 @@ let boardW = 919;
 let boardH = 403;
 let context;
 
-let playerW = 632/8;
-let playerH = 1638/8;
+
+
+let playerW = 632/9;
+let playerH = 1638/10;
 let playerX = 50;
 let playerY = boardH - playerH;
 let playerImg;
@@ -19,7 +21,7 @@ let player = {
 let points = 0;
 
 
-let stoneH = 40;
+let stoneH = 50;
 let stoneW = 70;
 let stoneX = 800;
 let stoneY = boardH - stoneH;
@@ -85,9 +87,7 @@ function handleKeyDown(e) {
     if (e.code === "ArrowRight") {
         rightPressed = true;
     }
-    if (e.code === "ArrowLeft") {
-        leftPressed = true;
-    }
+    
 }
 
 function handleKeyUp(e) {
