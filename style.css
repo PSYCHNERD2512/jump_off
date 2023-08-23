@@ -67,11 +67,5 @@ body {
     pointer-events: none;
 }
 
-#ground{
-    background-image: url("./img/ground.png");
-    height: 100px;
-    width: 100px;
-    background-color: aqua;
-    z-index: 100000;
-}
+
 

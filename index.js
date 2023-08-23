@@ -8,7 +8,7 @@ let context;
 let playerW = 632/9;
 let playerH = 1638/10;
 let playerX = 50;
-let playerY = boardH - playerH;
+let playerY = boardH - playerH-30;
 let playerImg;
 let player = {
     x: playerX,
@@ -24,7 +24,7 @@ let points = 0;
 let stoneH = 50;
 let stoneW = 70;
 let stoneX = 800;
-let stoneY = boardH - stoneH;
+let stoneY = boardH - stoneH-30;
 let stoneImg;
 let stoneWImg;
 let i = 1;
