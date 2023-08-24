@@ -31,6 +31,7 @@ let i = 1;
 let req = 12;
 let stonearr = [];
 let corr_stone = [1,3,4,6,8,10,12];//Tweak this array according to your expected answers.
+let stoneCount=0; 
 
 let stone_velX = 0;
 let stone_velY = 0;
@@ -100,11 +101,14 @@ function handleKeyUp(e) {
 }
 
 function update() {
-    if (game_over == true) {
+    if (game_over) {
         return;
     }
+    
+    
     requestAnimationFrame(update);
     context.clearRect(0, 0, boardW, boardH);
+    
 
     stone_velY += gravity;
     player.y = Math.min(player.y + stone_velY, playerY);
@@ -116,6 +120,8 @@ function update() {
     } else {
         stone_velX = 0;
     }
+
+    
 
     if (rightPressed || leftPressed) {
         playerImg = player.animationFrames[Math.floor(Date.now() / 100) % player.animationFrames.length];
@@ -161,10 +167,14 @@ function update() {
         }
     
     }
+
     
     
 
     displayPoints();
+    frameF();
+    
+   
 }
 
 function placeStone() {
@@ -179,7 +189,7 @@ function placeStone() {
             collected: false,
         };
 
-        Stone.x = stoneX + ((i - 1) * 600);
+        Stone.x = stoneX + ((i - 1) * 800);
 
         stonearr.push(Stone);
         i++;
@@ -189,7 +199,7 @@ function placeStone() {
 function displayPoints() {
     context.fillStyle = "white";
     context.font = "22px bold Arial";
-    context.fillText("Score: " + score, 10, 30);
+    context.fillText("Score: " + score, 450, 30);
 }
 
 
@@ -204,7 +214,7 @@ function loadAnimationFrames(i) {
         frameImg.src = `./img/player${i}.png`;
         player.animationFrames.push(frameImg);
         i++;
-        loadAnimationFrames(i); // Call the function recursively
+        loadAnimationFrames(i); 
     }
 }
 
@@ -220,3 +230,50 @@ function startGame() {
 function submit() {
     
 }
+
+
+
+function updateBtn(count) {
+    let styleElement = document.getElementById("customStyles");
+    if (!styleElement) {
+        styleElement = document.createElement("style");
+        styleElement.id = "customStyles";
+        document.head.appendChild(styleElement);
+    }
+
+
+    const cssRules = `
+        #btn${count}::after { 
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 162px;
+            height: 50px;
+            left: -5px;
+            top:-5px;
+            background-image: url("./img/select.png");
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+    `;
+
+    styleElement.innerHTML = cssRules;
+}
+function frameF() {
+    stoneCount = 1;
+
+    for (let numb = 0; numb < req; numb++) { 
+        if (stonearr[numb].x < 0) {
+            stoneCount+=1;
+        }
+    }
+
+    updateBtn(stoneCount);
+}
+
+
+
+
+
+
