@@ -157,7 +157,7 @@ function update() {
             if (corr_stone.includes(stone.n)) {
                 score+=2;
                 stone.collected = true;
-                stone.x -=200000000;
+                stone.x -=200;
             } else  {
                 score--;
                 stone.img = stoneWImg;
@@ -173,6 +173,11 @@ function update() {
 
     displayPoints();
     frameF();
+
+    if((-100<stonearr[req-1].x<0||stonearr[req-1].x<-220)&&(player.y == playerY)){
+        game_over=true;
+        return;
+    }
     
    
 }
