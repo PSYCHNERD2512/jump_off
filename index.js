@@ -43,10 +43,14 @@ let leftPressed = false;
 
 let animationFrameInterval = 200;
 
+var corr_audio = new Audio('./audio/correct.mp3');
+var wrong_audio = new Audio('./audio/wrong.mp3');
+
 let playerMaster;
 let initScore;
 
 window.onload = function () {
+  updateBtn(1);
   board = document.getElementById('board');
   board.height = boardH;
   board.width = boardW;
@@ -84,6 +88,17 @@ window.onload = function () {
 };
 
 function handleKeyDown(e) {
+  if (game_over) {
+    return;
+  }
+  if (e.code === 'Space' || e.code === 'ArrowUp') {
+    if (player.y === playerY) {
+      stone_velY = -10;
+    }
+  }
+  if (e.code === 'ArrowRight') {
+    rightPressed = true;
+  }
   if (game_over) {
     return;
   }
@@ -179,6 +194,38 @@ function update() {
         stone.img = stoneWImg;
         stone.collected = true;
       }
+      context.fillStyle = 'black';
+      context.font = '22px bold Arial';
+      context.fillText(
+        stone.n,
+        stone.x + stone.w / 2 - 5,
+        stone.y + stone.h / 2 + 5
+      );
+
+      if (
+        player.x + player.w > stone.x &&
+        player.x < stone.x + stone.w &&
+        player.y + player.h > stone.y &&
+        player.y < stone.y + stone.h &&
+        stone.collected == false
+      ) {
+        if (corr_stone.includes(stone.n)) {
+          score += 2;
+          stone.collected = true;
+          stone.x -= 200;
+          console.log('Stone #' + stone.n + ' collected');
+          corr_audio.volume = 0.3;
+
+          corr_audio.play();
+        } else {
+          score--;
+          stone.img = stoneWImg;
+          stone.collected = true;
+          wrong_audio.volume = 0.1;
+
+          wrong_audio.play();
+        }
+      }
     }
   }
 
@@ -207,6 +254,7 @@ function placeStone() {
     };
 
     Stone.x = stoneX + (i - 1) * 800;
+    Stone.x = stoneX + (i - 1) * 1000;
 
     stonearr.push(Stone);
     i++;
