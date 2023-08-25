@@ -217,7 +217,6 @@ function displayPoints() {
   context.fillStyle = 'white';
   context.font = '22px bold Arial';
   context.fillText('Score: ' + score, 450, 30);
-  if (playerMaster) playerMaster.SetVar(parentVar, initScore + score);
 }
 
 function resetGame() {
@@ -244,7 +243,9 @@ function startGame() {
   resetButton = document.getElementById('reset');
   resetButton.style.visibility = 'visible';
 }
-function submit() {}
+function submit() {
+  if (playerMaster) playerMaster.SetVar(parentVar, initScore + score);
+}
 
 function updateBtn(count) {
   let styleElement = document.getElementById('customStyles');
