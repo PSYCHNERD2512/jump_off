@@ -44,7 +44,12 @@ let leftPressed = false;
 
 let animationFrameInterval = 200; 
 
+
+var corr_audio = new Audio('./audio/correct.mp3');
+var wrong_audio = new Audio('./audio/wrong.mp3');
+
 window.onload = function () {
+    updateBtn(1);
     board = document.getElementById("board");
     board.height = boardH;
     board.width = boardW;
@@ -88,6 +93,7 @@ function handleKeyDown(e) {
     if (e.code === "ArrowRight") {
         rightPressed = true;
     }
+    
     
 }
 
@@ -158,10 +164,21 @@ function update() {
                 score+=2;
                 stone.collected = true;
                 stone.x -=200;
+                console.log("Stone #" + stone.n + " collected");
+                corr_audio.volume = 0.3;
+             
+                corr_audio.play();
+                
+                
             } else  {
                 score--;
                 stone.img = stoneWImg;
                 stone.collected= true;
+                wrong_audio.volume = 0.1;
+           
+                wrong_audio.play();
+            
+                
             }
             
         }
@@ -194,7 +211,7 @@ function placeStone() {
             collected: false,
         };
 
-        Stone.x = stoneX + ((i - 1) * 800);
+        Stone.x = stoneX + ((i - 1) * 1000);
 
         stonearr.push(Stone);
         i++;
