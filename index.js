@@ -44,6 +44,7 @@ let leftPressed = false;
 let animationFrameInterval = 200;
 
 let playerMaster;
+let initScore;
 
 window.onload = function () {
   board = document.getElementById('board');
@@ -54,6 +55,9 @@ window.onload = function () {
   if (window.parent && window.parent.GetPlayer) {
     playerMaster = window.parent.GetPlayer();
     console.log('Player loaded');
+    if (playerMaster) {
+      initScore = playerMaster.GetVar(parentVar);
+    }
   }
 
   const numFrames = 7;
@@ -213,7 +217,7 @@ function displayPoints() {
   context.fillStyle = 'white';
   context.font = '22px bold Arial';
   context.fillText('Score: ' + score, 450, 30);
-  if (playerMaster) playerMaster.SetVar(parentVar, score);
+  if (playerMaster) playerMaster.SetVar(parentVar, initScore + score);
 }
 
 function resetGame() {
