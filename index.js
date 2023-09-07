@@ -18,6 +18,23 @@ let player = {
   animationFrames: [],
 };
 
+let pointLabel = {
+  x: 0,
+  y: 0,
+  text: "",
+  opacity: 1.0,
+};
+
+let wrongLabel = {
+  x: 0,
+  y: 0,
+  text: "",
+  opacity: 1.0,
+};
+
+
+
+
 let points = 0;
 
 let stoneH = 50;
@@ -34,7 +51,7 @@ let stoneCount = 0;
 
 let stone_velX = 0;
 let stone_velY = 0;
-let gravity = 0.4;
+let gravity = 0.45;
 
 let game_over = false;
 let score = 0;
@@ -133,7 +150,7 @@ function update() {
   player.y = Math.min(player.y + stone_velY, playerY);
 
   if (rightPressed) {
-    stone_velX = -12;
+    stone_velX = -15;
   } else if (leftPressed) {
     stone_velX = 10;
   } else {
@@ -186,13 +203,25 @@ function update() {
       stone.collected == false
     ) {
       if (corr_stone.includes(stone.n)) {
+        increasePoint(stone.x,stone.y-stone.h - 10);
         score += 2;
         stone.collected = true;
+        
         stone.x -= 200;
+        corr_audio.volume = 0.1;
+
+          corr_audio.play();
+        
       } else {
+        reducePoint(stone.x,stone.y-stone.h - 10);
         score--;
         stone.img = stoneWImg;
+        
         stone.collected = true;
+        wrong_audio.volume = 0.1;
+
+          wrong_audio.play();
+        
       }
       context.fillStyle = 'black';
       context.font = '22px bold Arial';
@@ -202,30 +231,7 @@ function update() {
         stone.y + stone.h / 2 + 5
       );
 
-      if (
-        player.x + player.w > stone.x &&
-        player.x < stone.x + stone.w &&
-        player.y + player.h > stone.y &&
-        player.y < stone.y + stone.h &&
-        stone.collected == false
-      ) {
-        if (corr_stone.includes(stone.n)) {
-          score += 2;
-          stone.collected = true;
-          stone.x -= 200;
-          console.log('Stone #' + stone.n + ' collected');
-          corr_audio.volume = 0.3;
-
-          corr_audio.play();
-        } else {
-          score--;
-          stone.img = stoneWImg;
-          stone.collected = true;
-          wrong_audio.volume = 0.1;
-
-          wrong_audio.play();
-        }
-      }
+      
     }
   }
 
@@ -236,7 +242,9 @@ function update() {
     (-100 < stonearr[req - 1].x < 0 || stonearr[req - 1].x < -220) &&
     player.y == playerY
   ) {
-    game_over = true;
+    setTimeout(function() {
+      game_over = true;
+    }, 1000);
     return;
   }
 }
@@ -291,9 +299,23 @@ function startGame() {
   resetButton = document.getElementById('reset');
   resetButton.style.visibility = 'visible';
 }
+
+
 function submit() {
+  
+
   if (playerMaster) playerMaster.SetVar(parentVar, initScore + score);
+  const overlay = document.getElementById('overlay');
+  
+    overlay.style.display = 'flex';
+    
+
+  
+    const finalPoints = document.getElementById('finalPoints');
+    finalPoints.textContent = `${score}`;
+
 }
+
 
 function updateBtn(count) {
   let styleElement = document.getElementById('customStyles');
@@ -332,3 +354,70 @@ function frameF() {
 
   updateBtn(stoneCount);
 }
+
+
+function increasePoint(x, y) {
+
+  pointLabel.x = x;
+  pointLabel.y = y;
+  pointLabel.text = "+2";
+  pointLabel.opacity = 1.0; 
+
+ 
+  requestAnimationFrame(animatePointLabel);
+}
+
+function animatePointLabel() {
+  if (pointLabel.opacity > 0) {
+    context.clearRect(pointLabel.x - 10+30, pointLabel.y - 30, 50, 30); 
+    context.fillStyle = `rgba(255, 255, 255, ${pointLabel.opacity})`;
+    context.font = "24px bold Arial";
+    context.fillText(pointLabel.text, pointLabel.x+30, pointLabel.y);
+
+    pointLabel.y -= 1;
+    pointLabel.opacity -= 0.02;
+
+    requestAnimationFrame(animatePointLabel);
+  }
+}
+
+
+function reducePoint(x, y) {
+ 
+  wrongLabel.x = x;
+  wrongLabel.y = y;
+  wrongLabel.text = "-1";
+  wrongLabel.opacity = 1.0; 
+
+  
+  requestAnimationFrame(animateWrongLabel);
+}
+
+function animateWrongLabel() {
+  if (wrongLabel.opacity > 0) {
+    context.clearRect(pointLabel.x - 10+30, pointLabel.y - 30, 50, 30); 
+    context.fillStyle = `rgba(255, 0, 0, ${wrongLabel.opacity})`;
+    context.font = "24px bold Arial";
+    context.fillText(wrongLabel.text, wrongLabel.x+30, wrongLabel.y);
+
+    
+    wrongLabel.y -= 1; 
+    wrongLabel.opacity -= 0.02; 
+
+    requestAnimationFrame(animateWrongLabel);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

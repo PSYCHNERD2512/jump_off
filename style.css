@@ -14,6 +14,7 @@ body {
     background-size: cover;
 }
 
+
 .button-s {
     background: url("./img/function.png");
     background-size: cover;
@@ -68,6 +69,39 @@ body {
     cursor: not-allowed;
     pointer-events: none;
 }
+
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 919px;
+    height: 403px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  #pointsScreen {
+    background-image: url("./img/sub.png");
+    background-size: cover;
+    height:300px;
+    width: 620px;
+    text-align: center;
+  }
+  
+  #finalPoints {
+    position: relative;
+    padding-top: 23px;
+    padding-right: 60px;
+    font-size: 32px;
+    color: gold;
+    font-weight: bold;
+  }
+  
+  
 
 
 
