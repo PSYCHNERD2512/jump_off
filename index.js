@@ -5,8 +5,8 @@ let boardW = 919;
 let boardH = 403;
 let context;
 
-let playerW = 632 / 9;
-let playerH = 1638 / 10;
+let playerW = 595/5;
+let playerH = 472/5;
 let playerX = 50;
 let playerY = boardH - playerH - 30;
 let playerImg;
@@ -37,12 +37,13 @@ let wrongLabel = {
 
 let points = 0;
 
-let stoneH = 50;
-let stoneW = 70;
-let stoneX = 800;
-let stoneY = boardH - stoneH - 30;
+let stoneH = 231/4;
+let stoneW = 241/4;
+let stoneX = 650;
+let stoneY = boardH - stoneH - 20;
 let stoneImg;
 let stoneWImg;
+let stoneCImg;
 let i = 1;
 let req = 12;
 let stonearr = [];
@@ -66,6 +67,11 @@ var wrong_audio = new Audio('./audio/wrong.mp3');
 let playerMaster;
 let initScore;
 
+
+
+
+
+// load function
 window.onload = function () {
   updateBtn(1);
   board = document.getElementById('board');
@@ -81,28 +87,24 @@ window.onload = function () {
     }
   }
 
-  const numFrames = 7;
-  playerImg = new Image();
 
-  playerImg.src = './img/player1.png';
-
-  player.animationFrames = [];
-  for (let frame = 1; frame <= numFrames; frame++) {
-    let num = numFrames - frame + 1;
-    const frameImg = new Image();
-    frameImg.src = `./img/player${num}.png`;
-    player.animationFrames.push(frameImg);
-  }
+ 
 
   stoneImg = new Image();
-  stoneImg.src = './img/stone.png';
+  stoneImg.src = './4x/Asset 58@4x-8.png';
   stoneWImg = new Image();
-  stoneWImg.src = './img/stoneW.png';
+  stoneCImg = new Image();
+  stoneCImg.src = './4x/stoneC.png'
+  stoneWImg.src = './4x/stoneW.png';
 
   requestAnimationFrame(update);
   setInterval(placeStone, 100);
   setInterval(loadAnimationFrames(1), animationFrameInterval);
 };
+
+
+
+// handle key down
 
 function handleKeyDown(e) {
   if (game_over) {
@@ -138,6 +140,11 @@ function handleKeyUp(e) {
   }
 }
 
+
+
+
+
+// update function
 function update() {
   if (game_over) {
     return;
@@ -170,10 +177,10 @@ function update() {
   if (stone_velX > 0) {
     context.drawImage(playerImg, player.x, player.y, player.w, player.h);
   } else {
-    context.scale(-1, 1);
+    context.scale(+1, 1);
     context.drawImage(
       playerImg,
-      -player.x - player.w,
+      +player.x + player.w,
       player.y,
       player.w,
       player.h
@@ -189,11 +196,11 @@ function update() {
 
     context.fillStyle = 'black';
     context.font = '22px bold Arial';
-    context.fillText(
-      stone.n,
-      stone.x + stone.w / 2 - 5,
-      stone.y + stone.h / 2 + 5
-    );
+    // context.fillText(
+    //   stone.n,
+    //   stone.x + stone.w / 2 - 5,
+    //   stone.y + stone.h / 2 + 5
+    // );
 
     if (
       player.x + player.w > stone.x &&
@@ -207,21 +214,31 @@ function update() {
         score += 2;
         stone.collected = true;
         
-        stone.x -= 200;
+        
+        stone.img = stoneCImg;
         corr_audio.volume = 0.1;
 
           corr_audio.play();
+         
+   
+document.getElementById('btn'+stone.n).classList.add('correct-answer');
+
+
+
         
       } else {
         reducePoint(stone.x,stone.y-stone.h - 10);
         score--;
+        
         stone.img = stoneWImg;
         
         stone.collected = true;
         wrong_audio.volume = 0.1;
 
           wrong_audio.play();
-        
+          document.getElementById('btn'+stone.n).classList.add('wrong-answer');
+          
+
       }
       context.fillStyle = 'black';
       context.font = '22px bold Arial';
@@ -249,6 +266,10 @@ function update() {
   }
 }
 
+
+
+// place stone
+
 function placeStone() {
   if (i <= req) {
     let Stone = {
@@ -269,27 +290,39 @@ function placeStone() {
   }
 }
 
+
+
+
+// display points
 function displayPoints() {
   context.fillStyle = 'white';
   context.font = '22px bold Arial';
   context.fillText('Score: ' + score, 450, 30);
+  context.drawImage('./4x/score.png', 450, 30, 500, 500);
+  
 }
 
 function resetGame() {
   location.reload();
 }
 
+
+// load animation frames
+
 function loadAnimationFrames(i) {
   const numFrames = 7;
   if (i <= numFrames) {
     let frameImg = new Image();
-    frameImg.src = `./img/player${i}.png`;
+    frameImg.src = `./4x/bot.png`;
     player.animationFrames.push(frameImg);
     i++;
     loadAnimationFrames(i);
   }
 }
 
+
+
+// start game
 function startGame() {
   const startButton = document.getElementById('start');
   startButton.style.display = 'none';
@@ -300,7 +333,7 @@ function startGame() {
   resetButton.style.visibility = 'visible';
 }
 
-
+// submit function
 function submit() {
   
 
@@ -317,6 +350,9 @@ function submit() {
 }
 
 
+
+
+// update button
 function updateBtn(count) {
   let styleElement = document.getElementById('customStyles');
   if (!styleElement) {
@@ -334,7 +370,7 @@ function updateBtn(count) {
             height: 50px;
             left: -5px;
             top:-5px;
-            background-image: url("./img/select.png");
+            background-image: url("");
             background-size: cover;
             background-position: center;
             z-index: 1;
@@ -343,6 +379,9 @@ function updateBtn(count) {
 
   styleElement.innerHTML = cssRules;
 }
+
+
+// frame function
 function frameF() {
   stoneCount = 1;
 
@@ -356,6 +395,9 @@ function frameF() {
 }
 
 
+
+
+// increase point
 function increasePoint(x, y) {
 
   pointLabel.x = x;
@@ -367,6 +409,9 @@ function increasePoint(x, y) {
   requestAnimationFrame(animatePointLabel);
 }
 
+
+
+// animate the point label
 function animatePointLabel() {
   if (pointLabel.opacity > 0) {
     context.clearRect(pointLabel.x - 10+30, pointLabel.y - 30, 50, 30); 
@@ -382,6 +427,9 @@ function animatePointLabel() {
 }
 
 
+
+
+// reduce point
 function reducePoint(x, y) {
  
   wrongLabel.x = x;
@@ -393,6 +441,10 @@ function reducePoint(x, y) {
   requestAnimationFrame(animateWrongLabel);
 }
 
+
+
+
+// animate the wrong label
 function animateWrongLabel() {
   if (wrongLabel.opacity > 0) {
     context.clearRect(pointLabel.x - 10+30, pointLabel.y - 30, 50, 30); 
