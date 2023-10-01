@@ -349,6 +349,27 @@ body {
   }
   
 
+  #jc{
+    background-image: url("./4x/jc.png");
+    height: 60px;
+    width: 39px;
+    background-size: cover;
+    position: absolute;
+    top: 295px;
+    left: 10px;
+
+  }
+  #jf{
+    background-image: url("./4x/jf.png");
+    height: 38px;
+    width: 122px;
+    background-size: cover;
+    position: absolute;
+    top: 360px;
+
+    left: 10px;
+    
+  }
   #btn1.wrong-answer::after,
 
 #btn3.wrong-answer::after,
