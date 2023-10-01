@@ -295,12 +295,15 @@ function placeStone() {
 
 // display points
 function displayPoints() {
-  context.fillStyle = 'white';
-  context.font = '22px bold Arial';
-  context.fillText('Score: ' + score, 450, 30);
-  context.drawImage('./4x/score.png', 450, 30, 500, 500);
-  
-}
+  let scoreImg = new Image();
+  scoreImg.src = './4x/score.png'; 
+    context.drawImage(scoreImg, 850, 10, 60, 64);
+    context.fillStyle = 'white';
+    context.font = '22px bold Arial';
+    context.fillText(score, 875, 38); 
+  };
+
+
 
 function resetGame() {
   location.reload();
