@@ -329,9 +329,12 @@ function startGame() {
 
   document.addEventListener('keydown', handleKeyDown);
   document.addEventListener('keyup', handleKeyUp);
-  resetButton = document.getElementById('reset');
-  resetButton.style.visibility = 'visible';
+  submitButton = document.getElementById('submit');
+  
+  submitButton.style.visibility = 'visible';
+
 }
+
 
 // submit function
 function submit() {
@@ -339,6 +342,12 @@ function submit() {
 
   if (playerMaster) playerMaster.SetVar(parentVar, initScore + score);
   const overlay = document.getElementById('overlay');
+  submitButton = document.getElementById('submit');
+  
+  submitButton.style.visibility = 'hidden';
+  
+  resetButton = document.getElementById('reset');
+  resetButton.style.visibility = 'visible';
   
     overlay.style.display = 'flex';
     

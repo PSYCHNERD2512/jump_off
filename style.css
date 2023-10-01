@@ -38,7 +38,7 @@ body {
     outline: none;
     cursor: pointer;
     position: absolute;
-    top: 230px;
+    top: 280px;
     left: 750px;
     height: 40px;
     width: 134px;
@@ -58,16 +58,15 @@ body {
     outline: none;
     cursor: pointer;
     position: absolute;
-    top: 230px;
+    top: 280px;
     left: 750px;
     height: 40px;
     width: 134px;
     color: whitesmoke;
     background-position: center center;
+    visibility: hidden;
 }
-#submit{
-    top:275px;
-}
+
 #reset{
     background: url("./4x/reset.png");
     background-size: cover;
@@ -80,7 +79,7 @@ body {
     outline: none;
     cursor: pointer;
     position: absolute;
-    top: 230px;
+    top: 280px;
     left: 750px;
     height: 40px;
     width: 134px;
