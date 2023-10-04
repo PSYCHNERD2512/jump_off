@@ -399,7 +399,7 @@ body {
 #btn2.wrong-answer::after{
     content: "";
     position: absolute;
-    top: 0;
+    top: -5px;
     width: 143px;
     height: 40px;
     left: 8px;
@@ -435,6 +435,8 @@ body {
     background-position: center;
     z-index: 1;
 }
+
+
 
 /* Rest of your CSS styles */
 

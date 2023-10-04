@@ -372,7 +372,7 @@ function updateBtn(count) {
     styleElement.id = 'customStyles';
     document.head.appendChild(styleElement);
   }
-
+  if(count !== 2){
   const cssRules = `
         #btn${count}::after { 
             content: "";
@@ -380,16 +380,39 @@ function updateBtn(count) {
             top: 0;
             width: 162px;
             height: 50px;
-            left: -5px;
-            top:-5px;
-            background-image: url("");
+            left: 0px;
+            top:0px;
+            background-image: url("./4x/sel.png");
             background-size: cover;
             background-position: center;
             z-index: 1;
         }
     `;
+    
+
+  styleElement.innerHTML = cssRules;}
+  else{
+    const cssRules = `
+        #btn${count}::after { 
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 162px;
+            height: 50px;
+            left: 0px;
+            top:-5px;
+            background-image: url("./4x/sel.png");
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+    `;
+    
 
   styleElement.innerHTML = cssRules;
+    
+  }
+      
 }
 
 
